@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: invoiceEntry
+
+aws:
+  s3:
+    bucketName: invoiceentry
+    fileSizeLimit: 10485760
+    allowedMimeTypes: application/pdf,image/png,image/jpeg
