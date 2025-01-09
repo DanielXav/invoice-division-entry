@@ -1,6 +1,6 @@
 package com.danielxavier.invoiceEntry.adapter.`in`.controller
 
-import com.danielxavier.invoiceEntry.adapter.mapper.FileMapper.toRequest
+import com.danielxavier.invoiceEntry.adapter.`in`.controller.mapper.FileMapper.toRequest
 import com.danielxavier.invoiceEntry.application.ports.`in`.UploadPort
 import com.danielxavier.invoiceEntry.application.usecase.dto.ObjectResponse
 import org.springframework.http.ResponseEntity
@@ -18,12 +18,14 @@ class UploadController(
 
     @PostMapping("/upload")
     fun uploadInvoice(@RequestParam("file") file: MultipartFile): ResponseEntity<ObjectResponse> {
-        if (!file.isEmpty) {
-            val obj = uploadPort.upload(file.toRequest())
-            return ResponseEntity.ok().body(obj)
-        }
-        else {
-            return ResponseEntity.badRequest().build()
-        }
+
+        file.takeIf { !file.isEmpty } ?: return ResponseEntity.badRequest().build()
+
+        return runCatching {
+            uploadPort.upload(file.toRequest())
+        }.fold(
+            onSuccess = { ResponseEntity.ok(it) },
+            onFailure = { ResponseEntity.status(500).build() }
+        )
     }
 }

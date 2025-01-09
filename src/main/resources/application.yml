@@ -7,3 +7,9 @@ aws:
     bucketName: invoiceentry
     fileSizeLimit: 10485760
     allowedMimeTypes: application/pdf,image/png,image/jpeg
+
+events:
+  queues:
+    url: https://sqs.us-east-1.amazonaws.com/970547334852/UPLOAD-PDF-SUCESSO
+
+
