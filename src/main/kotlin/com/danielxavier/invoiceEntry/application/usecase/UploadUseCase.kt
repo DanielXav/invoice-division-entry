@@ -1,7 +1,6 @@
 package com.danielxavier.invoiceEntry.application.usecase
 
 import com.danielxavier.invoiceEntry.application.ports.`in`.UploadPort
-import com.danielxavier.invoiceEntry.application.ports.out.NotifyProducer
 import com.danielxavier.invoiceEntry.application.usecase.dto.ObjectRequest
 import com.danielxavier.invoiceEntry.application.usecase.dto.ObjectResponse
 import org.slf4j.LoggerFactory
@@ -42,7 +41,11 @@ class UploadUseCase(
                 RequestBody.fromInputStream(file.content, file.size)
             )
 
-            return ObjectResponse(key, file.type, file.size / 1024).also {
+            val fileSize = (file.size.toDouble() / 1024).let {
+                Math.round(it * 100) / 100.0
+            }
+
+            return ObjectResponse(key, file.type, fileSize).also {
                 notifyUseCase.sendNotification(it)
             }
         } catch (ex: Exception) {

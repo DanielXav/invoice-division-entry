@@ -1,4 +1,4 @@
-package com.danielxavier.invoiceEntry.adapter.out.sqs
+package com.danielxavier.invoiceEntry.adapter.out.queue
 
 import com.danielxavier.invoiceEntry.application.ports.out.NotifyProducer
 import com.danielxavier.invoiceEntry.application.usecase.dto.ObjectResponse
