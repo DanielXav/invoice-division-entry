@@ -13,6 +13,7 @@ class NotifyUseCase(
 
     override fun sendNotification(response: ObjectResponse) {
         try {
+            logger.info("Mensagem sendo enviada para a fila.")
             notifyProducer.sendMessage(response)
         } catch (ex: Exception) {
             logger.error("Erro ao enviar mensagem para a fila. [${ex.message}]")
