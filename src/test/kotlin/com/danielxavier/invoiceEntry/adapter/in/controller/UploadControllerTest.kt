@@ -25,7 +25,7 @@ class UploadControllerTest {
 
     @Test
     fun `deve fazer o upload com sucesso`() {
-        every { uploadPort.upload(any()) } returns ObjectResponse("123", "pdf", 233)
+        every { uploadPort.upload(any()) } returns ObjectResponse("123", "pdf", 233.55)
 
         val response: ResponseEntity<ObjectResponse> = uploadController.uploadInvoice(mockMultipartFile())
 

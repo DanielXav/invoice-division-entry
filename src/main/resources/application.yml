@@ -1,6 +1,9 @@
 spring:
   application:
     name: invoiceEntry
+  servlet:
+    multipart:
+      max-file-size: 5MB
 
 aws:
   s3:
@@ -11,5 +14,3 @@ aws:
 events:
   queues:
     url: https://sqs.us-east-1.amazonaws.com/970547334852/UPLOAD-PDF-SUCESSO
-
-

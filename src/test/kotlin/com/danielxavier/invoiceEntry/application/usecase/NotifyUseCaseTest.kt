@@ -27,7 +27,7 @@ class NotifyUseCaseTest {
     fun `deve enviar a notificação com sucesso`() {
         every { notifyProducer.sendMessage(any()) } returns Unit
 
-        val response = ObjectResponse("123", "pdf", 2312)
+        val response = ObjectResponse("123", "pdf", 2312.55)
 
         assertDoesNotThrow {
             notifyPort.sendNotification(response)
@@ -40,7 +40,7 @@ class NotifyUseCaseTest {
     fun `deve retornar erro ao tentar enviar mensagem para a fila`() {
         every { notifyProducer.sendMessage(any()) } throws Exception("Falha ao enviar mensagem")
 
-        val response = ObjectResponse("123", "pdf", 123)
+        val response = ObjectResponse("123", "pdf", 123.55)
 
         val exception = assertThrows<Exception> {
             notifyPort.sendNotification(response)

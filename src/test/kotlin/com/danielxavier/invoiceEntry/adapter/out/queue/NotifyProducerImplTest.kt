@@ -33,7 +33,7 @@ class NotifyProducerImplTest {
         every { objectMapper.writeValueAsString(any()) } returns "{}"
         every { sqsClient.sendMessage(ofType(SendMessageRequest::class)) } returns mockk()
 
-        val response = ObjectResponse("123", "pdf", 123)
+        val response = ObjectResponse("123", "pdf", 123.55)
 
         notifyProducer.sendMessage(response)
 
@@ -47,7 +47,7 @@ class NotifyProducerImplTest {
         every { sqsClient.sendMessage(ofType(SendMessageRequest::class)) } throws SqsException.builder()
             .message("Erro ao enviar mensagem").build()
 
-        val response = ObjectResponse("123", "pdf", 123)
+        val response = ObjectResponse("123", "pdf", 123.55)
 
         val exception = assertThrows<SqsException> {
             notifyProducer.sendMessage(response)
